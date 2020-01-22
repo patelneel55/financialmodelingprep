@@ -1,15 +1,13 @@
-'use strict'
+'use strict';
 
-let Data = require('./lib/data')
+const Data = require('./lib/data');
 
-// module.exports = (config = {}) => {
-console.log("hello");
-// Add the base url for submodules to use.
-let cc = {};
-cc["base"] = `https://financialmodelingprep.com/api/v3/`
+  // Add the base url for submodules to use.
+  let config = {}
+  config.base = `https://financialmodelingprep.com/api/v3/`
 
-let dd = Data(cc);
-
-dd.quote('AAPL')
+  // Include all the submodules.
+  let data = Data(config);
+  data.intraday('MSFT').then(res => console.log(res));
 
 // };
