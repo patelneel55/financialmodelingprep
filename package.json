@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/patelneel55/financialmodelingprep/issues"
   },
-  "homepage": "https://github.com/patelneel55/financialmodelingprep#readme"
+  "homepage": "https://github.com/patelneel55/financialmodelingprep#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "mocha": "^7.0.0"
+  }
 }
