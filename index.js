@@ -1,7 +1,15 @@
 'use strict';
 
 const stock = require('./lib/stock');
+const market = require('./lib/market');
+const forex = require('./lib/forex');
+const crypto = require('./lib/crypto');
+const search = require('./lib/search');
 
-stock('MSFT').quote().then(res => console.log(res));
-
-// };
+module.exports = {
+    stock: stock,
+    market: market,
+    forex: forex,
+    crypto: cryto,
+    search: search
+};
