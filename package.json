@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000"
+    "test": "nyc mocha --timeout 10000",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && bash <(curl -s https://codecov.io/bash) -v -f \"*.lcov\""
   },
   "repository": {
     "type": "git",

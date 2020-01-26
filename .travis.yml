@@ -1,9 +1,6 @@
-sudo: required
-
 language: node_js
 node_js:
   - '10'
-  - '9'
 
 before_install:
   - npm install -g npm@^3.5.2
@@ -13,3 +10,6 @@ install:
 
 script:
   - npm test
+
+after_success:
+  - npm run coverage
