@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --timeout 10000",
+    "test": "nyc --all mocha --timeout 10000",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
