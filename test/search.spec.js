@@ -35,7 +35,7 @@ describe('.search', () => {
             });
     });
 
-    it('undefined query parameter should return empty set', (done) => {
+    it('undefined query parameters should return empty set', (done) => {
         chai.request('https://financialmodelingprep.com/api/v3')
             .get('/search')
             .end((err, res) => {
@@ -102,7 +102,7 @@ describe('.search', () => {
 
     it('keywords with empty limit and valid exchange should return valid data', (done) => {
         chai.request('https://financialmodelingprep.com/api/v3')
-            .get('/search?query=AA&limit=10')
+            .get('/search?query=AA&limit=&exchange=NASDAQ')
             .end((err, res) => {
                 search('AA', '', 'NASDAQ')
                     .then((response) => {
