@@ -14,7 +14,7 @@ I have no affiliation with FinancialModelingPrep and its web API development.
 
 ## Installation
 ```bash
-$ npm install financialmodelingprep
+$ npm install --save financialmodelingprep
 ```
 
 ## Usage
@@ -43,34 +43,42 @@ Keep in mind most of the web API breakdown and routes closely follow the structu
 
 Accessed through `fmp.stock({symbol or symbol list}).{method_name}`
 ```js
-profile()               // /profile
-quote()                 // /quote
-rating()                // /company/rating
-currentprice()          // /stock/real-time-price
-financial.{method_name}
+profile()                               // /profile
+quote()                                 // /quote
+rating()                                // /company/rating
+currentprice()                          // /stock/real-time-price
+financial.{method_name}                 // Sub-Function
 ```
 
 ### Financial
 Accessed throuh `fmp.stock({symbol or symbol list}).financial.{method_name}`
 ```js
-income(period = 'annual')       // /financials/income-statement
-balancesheet(period = 'annual') // /financials/balance-sheet-statement
-cashflow(period = 'annual')     // /financials/cash-flow-statement
-metrics(period = 'annual')      // /company-key-metrics
-growth(period = 'annual')       // /financial-statement-growth
-ratios()                        // /financial-ratios
+income(period = 'annual')               // /financials/income-statement
+balancesheet(period = 'annual')         // /financials/balance-sheet-statement
+cashflow(period = 'annual')             // /financials/cash-flow-statement
+metrics(period = 'annual')              // /company-key-metrics
+growth(period = 'annual')               // /financial-statement-growth
+ratios()                                // /financial-ratios
 ```
 
 ### Market
 Accessed through `fmp.market.{method_name}`
 ```js
-mostactive()                // /stock/actives
-mostgainer()                // /stock/gainers
-mostloser()                 // /stock/losers
-sectorperformance()         // /stock/sectors-performance
-
+mostactive()                            // /stock/actives
+mostgainer()                            // /stock/gainers
+mostloser()                             // /stock/losers
+sectorperformance()                     // /stock/sectors-performance
 ```
 
+### Crypto
+Accessed through `fmp.crypto.{method_name}`
+```js
+values(stock = 'all')                   // /quotes/crypto
+```
 
-
+### Search
+Accessed through `fmp.search()`
+```js
+search(keywords, limit = 10, exchange)  // /search
+```
 
