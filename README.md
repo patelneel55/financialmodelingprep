@@ -26,14 +26,50 @@ const fmp = require('financialmodelingprep')
 
 // API route: /quote/AAPL
 fmp.stock('aapl').quote().then(response => console.log(response));
+//API route: /quote/AAPL,MSFT
+fmp.stock(['AAPL', 'MSFT']).quote().then(response => console.log(response));
 
 // API route: /stock/sectors-performance
 fmp.market.sectorperformance().then(response => console.log(response));
+
+// API route: /quote/USDEUR
+fmp.forex('USD', 'EUR').then(response => console.log(response));
+
 ```
 
 Keep in mind most of the web API breakdown and routes closely follow the structure of the node functions.
 
+### Stock
 
+Accessed through `fmp.stock({symbol or symbol list}).{method_name}`
+```js
+profile()               // /profile
+quote()                 // /quote
+rating()                // /company/rating
+currentprice()          // /stock/real-time-price
+financial.{method_name}
+```
+
+### Financial
+Accessed throuh `fmp.stock({symbol or symbol list}).financial.{method_name}`
+```js
+income(period = 'annual')       // /financials/income-statement
+balancesheet(period = 'annual') // /financials/balance-sheet-statement
+cashflow(period = 'annual')     // /financials/cash-flow-statement
+metrics(period = 'annual')      // /company-key-metrics
+growth(period = 'annual')       // /financial-statement-growth
+ratios()                        // /financial-ratios
+```
+
+### Market
+Accessed through `fmp.market.{method_name}`
+```js
+mostactive()                // /stock/actives
+mostgainer()                // /stock/gainers
+mostloser()                 // /stock/losers
+sectorperformance()         // /stock/sectors-performance
+
+```
 
 
 
