@@ -43,42 +43,41 @@ Keep in mind most of the web API breakdown and routes closely follow the structu
 
 Accessed through `fmp.stock({symbol or symbol list}).{method_name}`
 ```js
-profile()                               // /profile
-quote()                                 // /quote
-rating()                                // /company/rating
-currentprice()                          // /stock/real-time-price
-financial.{method_name}                 // Sub-Function
-```
-
-### Financial
-Accessed throuh `fmp.stock({symbol or symbol list}).financial.{method_name}`
-```js
-income(period = 'annual')               // /financials/income-statement
-balancesheet(period = 'annual')         // /financials/balance-sheet-statement
-cashflow(period = 'annual')             // /financials/cash-flow-statement
-metrics(period = 'annual')              // /company-key-metrics
-growth(period = 'annual')               // /financial-statement-growth
-ratios()                                // /financial-ratios
+profile()                                   // /profile
+quote()                                     // /quote
+rating()                                    // /company/rating
+currentprice()                              // /stock/real-time-price
+financial.income(period = 'annual')         // /financials/income-statement
+financial.balancesheet(period = 'annual')   // /financials/balance-sheet-statement
+financial.cashflow(period = 'annual')       // /financials/cash-flow-statement
+financial.metrics(period = 'annual')        // /company-key-metrics
+financial.growth(period = 'annual')         // /financial-statement-growth
+financial.ratios()                          // /financial-ratios
 ```
 
 ### Market
 Accessed through `fmp.market.{method_name}`
 ```js
-mostactive()                            // /stock/actives
-mostgainer()                            // /stock/gainers
-mostloser()                             // /stock/losers
-sectorperformance()                     // /stock/sectors-performance
+mostactive()                                // /stock/actives
+mostgainer()                                // /stock/gainers
+mostloser()                                 // /stock/losers
+sectorperformance()                         // /stock/sectors-performance
+index.list()                                // /majors-indexes
+index.history({ticker})                     // /historical-price-full/index/{ticker}
 ```
 
 ### Crypto
 Accessed through `fmp.crypto.{method_name}`
 ```js
-values(stock = 'all')                   // /quotes/crypto
+values(stock = 'all')                       // /quotes/crypto
+history({ticker})
 ```
 
 ### Search
 Accessed through `fmp.search()`
 ```js
-search(keywords, limit = 10, exchange)  // /search
+search(keywords, limit = 10, exchange)      // /search
 ```
 
+# Contact
+- Neel Patel (patelneel55@gmail.com)
