@@ -358,6 +358,73 @@ describe('.stock', () => {
                         .catch(done);
                 });
             });
-        })
+        });
+
+        describe('.companyvalue', () => {
+            it('undefined parameter should return valid data', (done) => {
+                chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/enterprise-value/AAPL')
+                .end((err, res) => {
+                    financial('AAPL').companyvalue()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                });
+            });
+
+            it('empty parameter should return valid data', (done) => {
+                chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/enterprise-value/AAPL?period=')
+                .end((err, res) => {
+                    financial('AAPL').companyvalue('')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                });
+            });
+
+            it('quarter parameter should return valid data', (done) => {
+                chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/enterprise-value/AAPL?period=quarter')
+                .end((err, res) => {
+                    financial('AAPL').companyvalue('quarter')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                });
+            });
+
+            it('annual parameter should return valid data', (done) => {
+                chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/enterprise-value/AAPL?period=annual')
+                .end((err, res) => {
+                    financial('AAPL').companyvalue('annual')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                });
+            });
+
+            it('invalid parameter should return valid annual data', (done) => {
+                chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/enterprise-value/AAPL?period=annual')
+                .end((err, res) => {
+                    financial('AAPL').companyvalue('dfsgffdsf')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                });
+            });
+        });
     });
 });
