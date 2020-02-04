@@ -10,6 +10,6 @@ module.exports = {
     stock: stock,
     market: market,
     forex: forex,
-    crypto: cryto,
+    crypto: crypto,
     search: search
 };
