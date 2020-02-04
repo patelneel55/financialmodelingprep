@@ -1,7 +1,15 @@
 'use strict'
 
-// module.exports = (config = {}) => {
-console.log("hello");
-// Add the base url for submodules to use.
-config.base = `https://financialmodelingprep.com/api/v3/`
-// };
+const stock = require('./lib/stock');
+const market = require('./lib/market');
+const forex = require('./lib/forex');
+const crypto = require('./lib/crypto');
+const search = require('./lib/search');
+
+module.exports = {
+    stock: stock,
+    market: market,
+    forex: forex,
+    crypto: crypto,
+    search: search
+};
