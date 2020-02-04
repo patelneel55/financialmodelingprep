@@ -7,6 +7,17 @@
     "test": "nyc --all mocha --timeout 10000",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
+  "keywords": [
+    "financialmodelingprep",
+    "financial modeling prep",
+    "stocks",
+    "api",
+    "stock market api",
+    "stock market",
+    "financial api",
+    "financial data",
+    "financial"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/patelneel55/financialmodelingprep.git"
@@ -16,9 +27,11 @@
   "bugs": {
     "url": "https://github.com/patelneel55/financialmodelingprep/issues"
   },
-  "homepage": "https://github.com/patelneel55/financialmodelingprep#readme",
+  "homepage": "https://github.com/patelneel55/financialmodelingprep",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^7.0.0",

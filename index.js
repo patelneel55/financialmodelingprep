@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const stock = require('./lib/stock');
 const market = require('./lib/market');
