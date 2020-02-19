@@ -6,15 +6,15 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const etf = require('../lib/etf');
+const mutualfund = require('../lib/mutualfund');
 
-describe('.etf', () => {
+describe('.mutualfund', () => {
     describe('.list', () => {
-        it('should return list of etfs', (done) => {
+        it('should return list of mutualfunds', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-etfs')
+                .get('/symbol/available-mutual-funds')
                 .end((err, res) => {
-                    etf.list()
+                    mutualfund.list()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -23,11 +23,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('invalid parameter should return list of valid etfs', (done) => {
+        it('invalid parameter should return list of valid mutualfunds', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-etfs')
+                .get('/symbol/available-mutual-funds')
                 .end((err, res) => {
-                    etf.list('123')
+                    mutualfund.list('123')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -38,11 +38,11 @@ describe('.etf', () => {
     });
 
     describe('.quote', () => {
-        it('should return valid price quote for XLK', (done) => {
+        it('should return valid price quote for GIFPX', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/XLK')
+                .get('/quote/GIFPX')
                 .end((err, res) => {
-                    etf.quote('XLK')
+                    mutualfund.quote('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -51,11 +51,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('lowercse \'xlk\' should return valid data', (done) => {
+        it('lowercse \'gifpx\' should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/XLK')
+                .get('/quote/GIFPX')
                 .end((err, res) => {
-                    etf.quote('xlk')
+                    mutualfund.quote('gifpx')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -66,9 +66,9 @@ describe('.etf', () => {
 
         it('no parameter should return all commodities quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/etf')
+                .get('/quotes/mutual_fund')
                 .end((err, res) => {
-                    etf.quote()
+                    mutualfund.quote()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -79,9 +79,9 @@ describe('.etf', () => {
 
         it('empty parameter should return all commodities quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/etf')
+                .get('/quotes/mutual_fund')
                 .end((err, res) => {
-                    etf.quote('')
+                    mutualfund.quote('')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -94,7 +94,7 @@ describe('.etf', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/quote/abcd')
                 .end((err, res) => {
-                    etf.quote('abcd')
+                    mutualfund.quote('abcd')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -103,11 +103,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('[\'XLK,CDL\'] stock should return valid data', (done) => {
+        it('[\'GIFPX,JBFRX\'] stock should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/XLK,CDL')
+                .get('/quote/GIFPX,JBFRX')
                 .end((err, res) => {
-                    etf.quote(['XLK', 'CDL'])
+                    mutualfund.quote(['GIFPX', 'JBFRX'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -116,11 +116,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('[\'xlk,cdl\'] stock in lowercase should return valid data', (done) => {
+        it('[\'gifpx,jbfrx\'] stock in lowercase should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/XLK,CDL')
+                .get('/quote/GIFPX,jbfrx')
                 .end((err, res) => {
-                    etf.quote(['XLK', 'cdl'])
+                    mutualfund.quote(['gifpx', 'jbfrx'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -131,11 +131,11 @@ describe('.etf', () => {
     })
 
     describe('.history', () => {
-        it('should return valid of history of a etf', (done) => {
+        it('should return valid of history of a mutualfund', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/etf/XLK')
+                .get('/historical-price-full/mutual_fund/GIFPX')
                 .end((err, res) => {
-                    etf.history('XLK')
+                    mutualfund.history('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -144,11 +144,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('should return valid of history of a etf for lowercase values', (done) => {
+        it('should return valid of history of a mutualfund for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/etf/XLK')
+                .get('/historical-price-full/mutual_fund/GIFPX')
                 .end((err, res) => {
-                    etf.history('xlk')
+                    mutualfund.history('gifpx')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -159,9 +159,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/etf/XLK?timeseries=5')
+                .get('/historical-price-full/mutual_fund/GIFPX?timeseries=5')
                 .end((err, res) => {
-                    etf.history('XLK', { limit: 5 })
+                    mutualfund.history('GIFPX', { limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -172,9 +172,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/etf/XLK?timeseries=5&serietype=line')
+                .get('/historical-price-full/mutual_fund/GIFPX?timeseries=5&serietype=line')
                 .end((err, res) => {
-                    etf.history('XLK', { data_type: 'line', limit: 5 })
+                    mutualfund.history('GIFPX', { data_type: 'line', limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -185,9 +185,9 @@ describe('.etf', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/etf/XLK?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/mutual_fund/GIFPX?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
-                    etf.history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12' })
+                    mutualfund.history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -197,7 +197,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit', (done) => {
-            etf.history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+            mutualfund.history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -206,7 +206,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
-            etf.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+            mutualfund.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -216,11 +216,11 @@ describe('.etf', () => {
     });
 
     describe('.dividend_history', () => {
-        it('should return valid of history of a etf', (done) => {
+        it('should return valid of history of a mutualfund', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_dividend/XLK')
+                .get('/historical-price-full/stock_dividend/GIFPX')
                 .end((err, res) => {
-                    etf.dividend_history('XLK')
+                    mutualfund.dividend_history('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -229,11 +229,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('should return valid of history of a etf for lowercase values', (done) => {
+        it('should return valid of history of a mutualfund for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_dividend/XLK')
+                .get('/historical-price-full/stock_dividend/GIFPX')
                 .end((err, res) => {
-                    etf.dividend_history('xlk')
+                    mutualfund.dividend_history('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -244,9 +244,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_dividend/XLK?timeseries=5')
+                .get('/historical-price-full/stock_dividend/GIFPX?timeseries=5')
                 .end((err, res) => {
-                    etf.dividend_history('XLK', { limit: 5 })
+                    mutualfund.dividend_history('GIFPX', { limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -257,9 +257,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_dividend/XLK?timeseries=5&serietype=line')
+                .get('/historical-price-full/stock_dividend/GIFPX?timeseries=5&serietype=line')
                 .end((err, res) => {
-                    etf.dividend_history('XLK', { data_type: 'line', limit: 5 })
+                    mutualfund.dividend_history('GIFPX', { data_type: 'line', limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -270,9 +270,9 @@ describe('.etf', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_dividend/XLK?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/stock_dividend/GIFPX?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
-                    etf.dividend_history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12' })
+                    mutualfund.dividend_history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -282,7 +282,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit', (done) => {
-            etf.dividend_history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+            mutualfund.dividend_history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -291,7 +291,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
-            etf.dividend_history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+            mutualfund.dividend_history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -301,11 +301,11 @@ describe('.etf', () => {
     });
 
     describe('.split_history', () => {
-        it('should return valid of history of a etf', (done) => {
+        it('should return valid of history of a mutualfund', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_split/XLK')
+                .get('/historical-price-full/stock_split/GIFPX')
                 .end((err, res) => {
-                    etf.split_history('XLK')
+                    mutualfund.split_history('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -314,11 +314,11 @@ describe('.etf', () => {
                 })
         });
 
-        it('should return valid of history of a etf for lowercase values', (done) => {
+        it('should return valid of history of a mutualfund for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_split/XLK')
+                .get('/historical-price-full/stock_split/GIFPX')
                 .end((err, res) => {
-                    etf.split_history('xlk')
+                    mutualfund.split_history('GIFPX')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -329,9 +329,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_split/XLK?timeseries=5')
+                .get('/historical-price-full/stock_split/GIFPX?timeseries=5')
                 .end((err, res) => {
-                    etf.split_history('XLK', { limit: 5 })
+                    mutualfund.split_history('GIFPX', { limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -342,9 +342,9 @@ describe('.etf', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_split/XLK?timeseries=5&serietype=line')
+                .get('/historical-price-full/stock_split/GIFPX?timeseries=5&serietype=line')
                 .end((err, res) => {
-                    etf.split_history('XLK', { data_type: 'line', limit: 5 })
+                    mutualfund.split_history('GIFPX', { data_type: 'line', limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -355,9 +355,9 @@ describe('.etf', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/stock_split/XLK?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/stock_split/GIFPX?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
-                    etf.split_history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12' })
+                    mutualfund.split_history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -367,7 +367,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit', (done) => {
-            etf.split_history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+            mutualfund.split_history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -376,7 +376,7 @@ describe('.etf', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
-            etf.split_history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+            mutualfund.split_history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();

@@ -6,15 +6,15 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const market = require('../lib/market');
+const forex = require('../lib/forex');
 
-describe('.market', () => {
-    describe('.mostactive', () => {
-        it('should return valid data', (done) => {
+describe('.forex', () => {
+    describe('.rate', () => {
+        it('should return exchange rate for valid currencies', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/actives')
+                .get('/quote/EURUSD')
                 .end((err, res) => {
-                    market.mostactive()
+                    forex('EUR', 'USD').rate()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -23,39 +23,11 @@ describe('.market', () => {
                 })
         });
 
-        it('invalid parameter should return valid data', (done) => {
+        it('should return exchange rate for lowercase valid currencies', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/actives')
+                .get('/quote/EURUSD')
                 .end((err, res) => {
-                    market.mostactive('invalid')
-                        .then((response) => {
-                            expect(res.body).to.eql(response);
-                            done();
-                        })
-                        .catch(done);
-                })
-        });
-    });
-
-    describe('.mostgainer', () => {
-        it('should return valid data', (done) => {
-            chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/gainers')
-                .end((err, res) => {
-                    market.mostgainer()
-                        .then((response) => {
-                            expect(res.body).to.eql(response);
-                            done();
-                        })
-                        .catch(done);
-                })
-        });
-
-        it('invalid parameter should return valid data', (done) => {
-            chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/gainers')
-                .end((err, res) => {
-                    market.mostgainer('invalid')
+                    forex('EUR', 'USD').rate()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -65,12 +37,12 @@ describe('.market', () => {
         });
     });
 
-    describe('.mostloser', () => {
-        it('should return valid data', (done) => {
+    describe('.history', () => {
+        it('should return valid history of a forex ticker', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/losers')
+                .get('/historical-price-full/forex/USDEUR')
                 .end((err, res) => {
-                    market.mostloser()
+                    forex('USD', 'EUR').history()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -79,26 +51,11 @@ describe('.market', () => {
                 })
         });
 
-        it('invalid parameter should return valid data', (done) => {
+        it('should return valid of history of a etf for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/losers')
+                .get('/historical-price-full/forex/USDEUR')
                 .end((err, res) => {
-                    market.mostloser('invalid')
-                        .then((response) => {
-                            expect(res.body).to.eql(response);
-                            done();
-                        })
-                        .catch(done);
-                })
-        });
-    });
-
-    describe('.sectorperformance', () => {
-        it('should return valid data', (done) => {
-            chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/sectors-performance')
-                .end((err, res) => {
-                    market.sectorperformance()
+                    forex('USD', 'EUR').history()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -107,17 +64,61 @@ describe('.market', () => {
                 })
         });
 
-        it('invalid parameter should return valid data', (done) => {
+        it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/stock/sectors-performance')
+                .get('/historical-price-full/forex/USDEUR?timeseries=5')
                 .end((err, res) => {
-                    market.sectorperformance('invalid')
+                    forex('USD', 'EUR').history({ limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
                         })
                         .catch(done);
                 })
+        });
+
+        it('should return only data points until limit in linear graph format', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/forex/USDEUR?timeseries=5&serietype=line')
+                .end((err, res) => {
+                    forex('USD', 'EUR').history({ data_type: 'line', limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return data points between a time interval', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/forex/USDEUR?from=2018-03-12&to=2019-03-12')
+                .end((err, res) => {
+                    forex('USD', 'EUR').history({ start_date: '2018-03-12', end_date: '2019-03-12' })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            forex('USD', 'EUR').history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            forex('USD', 'EUR').history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
         });
     });
 });
