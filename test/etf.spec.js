@@ -6,15 +6,15 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const commodities = require('../lib/commodities');
+const etf = require('../lib/etf');
 
-describe('.commodities', () => {
+describe('.etf', () => {
     describe('.list', () => {
-        it('should return list of commodities', (done) => {
+        it('should return list of etfs', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-commodities')
+                .get('/symbol/available-etfs')
                 .end((err, res) => {
-                    commodities.list()
+                    etf.list()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -23,11 +23,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('invalid parameter should return list of valid commodities', (done) => {
+        it('invalid parameter should return list of valid etfs', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-commodities')
+                .get('/symbol/available-etfs')
                 .end((err, res) => {
-                    commodities.list('123')
+                    etf.list('123')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -38,11 +38,11 @@ describe('.commodities', () => {
     });
 
     describe('.quote', () => {
-        it('should return valid price quote for PLUSD', (done) => {
+        it('should return valid price quote for XLK', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD')
+                .get('/quote/XLK')
                 .end((err, res) => {
-                    commodities.quote('PLUSD')
+                    etf.quote('XLK')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -51,11 +51,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('lowercse \'plusd\' should return valid data', (done) => {
+        it('lowercse \'xlk\' should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD')
+                .get('/quote/XLK')
                 .end((err, res) => {
-                    commodities.quote('plusd')
+                    etf.quote('xlk')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -66,9 +66,9 @@ describe('.commodities', () => {
 
         it('no parameter should return all commodities quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/commodity')
+                .get('/quotes/etf')
                 .end((err, res) => {
-                    commodities.quote()
+                    etf.quote()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -79,9 +79,9 @@ describe('.commodities', () => {
 
         it('empty parameter should return all commodities quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/commodity')
+                .get('/quotes/etf')
                 .end((err, res) => {
-                    commodities.quote('')
+                    etf.quote('')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -94,7 +94,7 @@ describe('.commodities', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/quote/abcd')
                 .end((err, res) => {
-                    commodities.quote('abcd')
+                    etf.quote('abcd')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -103,11 +103,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('[\'PLUSD,CTUSX\'] stock should return valid data', (done) => {
+        it('[\'XLK,CDL\'] stock should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD,CTUSX')
+                .get('/quote/XLK,CDL')
                 .end((err, res) => {
-                    commodities.quote(['PLUSD', 'CTUSX'])
+                    etf.quote(['XLK', 'CDL'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -116,11 +116,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('[\'plusd,ctusx\'] stock in lowercase should return valid data', (done) => {
+        it('[\'xlk,cdl\'] stock in lowercase should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD,CTUSX')
+                .get('/quote/XLK,CDL')
                 .end((err, res) => {
-                    commodities.quote(['plusd', 'ctusx'])
+                    etf.quote(['XLK', 'cdl'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -128,15 +128,14 @@ describe('.commodities', () => {
                         .catch(done);
                 })
         });
-
-    });
+    })
 
     describe('.history', () => {
-        it('should return valid of history of a commodity', (done) => {
+        it('should return valid of history of a etf', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD')
+                .get('/historical-price-full/etf/XLK')
                 .end((err, res) => {
-                    commodities.history('ZGUSD')
+                    etf.history('XLK')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -145,11 +144,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('should return valid of history of a commodity for lowercase values', (done) => {
+        it('should return valid of history of a etf for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD')
+                .get('/historical-price-full/etf/XLK')
                 .end((err, res) => {
-                    commodities.history('zgusd')
+                    etf.history('xlk')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -160,9 +159,9 @@ describe('.commodities', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?timeseries=5')
+                .get('/historical-price-full/etf/XLK?timeseries=5')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { limit: 5 })
+                    etf.history('XLK', { limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -173,9 +172,9 @@ describe('.commodities', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?timeseries=5&serietype=line')
+                .get('/historical-price-full/etf/XLK?timeseries=5&serietype=line')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { data_type: 'line', limit: 5 })
+                    etf.history('XLK', { data_type: 'line', limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -186,9 +185,9 @@ describe('.commodities', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/etf/XLK?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12' })
+                    etf.history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -197,8 +196,8 @@ describe('.commodities', () => {
                 })
         });
 
-        it('should return 404 not found between a time interval with a data limit', (done) => {
-            commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            etf.history('XLK', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -206,8 +205,8 @@ describe('.commodities', () => {
                 .catch(done);
         });
 
-        it('should return 404 not found between a time interval with a data limit for a line graph', (done) => {
-            commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            etf.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();

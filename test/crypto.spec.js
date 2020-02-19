@@ -6,15 +6,15 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const commodities = require('../lib/commodities');
+const crypto = require('../lib/crypto');
 
-describe('.commodities', () => {
+describe('.crypto', () => {
     describe('.list', () => {
-        it('should return list of commodities', (done) => {
+        it('should return list of cryptocurrencies', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-commodities')
+                .get('/symbol/available-cryptocurrencies')
                 .end((err, res) => {
-                    commodities.list()
+                    crypto.list()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -23,11 +23,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('invalid parameter should return list of valid commodities', (done) => {
+        it('invalid parameter should return list of valid cryptocurrencies', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/symbol/available-commodities')
+                .get('/symbol/available-cryptocurrencies')
                 .end((err, res) => {
-                    commodities.list('123')
+                    crypto.list('123')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -38,11 +38,11 @@ describe('.commodities', () => {
     });
 
     describe('.quote', () => {
-        it('should return valid price quote for PLUSD', (done) => {
+        it('should return valid price quote for BTCUSD', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD')
+                .get('/quote/BTCUSD')
                 .end((err, res) => {
-                    commodities.quote('PLUSD')
+                    crypto.quote('BTCUSD')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -51,11 +51,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('lowercse \'plusd\' should return valid data', (done) => {
+        it('lowercse \'btcusd\' should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD')
+                .get('/quote/BTCUSD')
                 .end((err, res) => {
-                    commodities.quote('plusd')
+                    crypto.quote('btcusd')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -64,11 +64,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('no parameter should return all commodities quotes', (done) => {
+        it('no parameter should return all crypto quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/commodity')
+                .get('/cryptocurrencies')
                 .end((err, res) => {
-                    commodities.quote()
+                    crypto.quote()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -77,11 +77,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('empty parameter should return all commodities quotes', (done) => {
+        it('empty parameter should return all crypto quotes', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quotes/commodity')
+                .get('/cryptocurrencies')
                 .end((err, res) => {
-                    commodities.quote('')
+                    crypto.quote('')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -94,7 +94,7 @@ describe('.commodities', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/quote/abcd')
                 .end((err, res) => {
-                    commodities.quote('abcd')
+                    crypto.quote('abcd')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -103,11 +103,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('[\'PLUSD,CTUSX\'] stock should return valid data', (done) => {
+        it('[\'BTCUSD,ETHUSD\'] stock should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD,CTUSX')
+                .get('/quote/BTCUSD,ETHUSD')
                 .end((err, res) => {
-                    commodities.quote(['PLUSD', 'CTUSX'])
+                    crypto.quote(['BTCUSD', 'ETHUSD'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -116,11 +116,11 @@ describe('.commodities', () => {
                 })
         });
 
-        it('[\'plusd,ctusx\'] stock in lowercase should return valid data', (done) => {
+        it('[\'btcusd,ethusd\'] stock in lowercase should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/PLUSD,CTUSX')
+                .get('/quote/BTCUSD,ETHUSD')
                 .end((err, res) => {
-                    commodities.quote(['plusd', 'ctusx'])
+                    crypto.quote(['btcusd', 'ethusd'])
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -129,14 +129,26 @@ describe('.commodities', () => {
                 })
         });
 
+        it('should return valid data without USD denotion', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/quote/BTCUSD')
+                .end((err, res) => {
+                    crypto.quote('BTC')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
     });
 
     describe('.history', () => {
         it('should return valid of history of a commodity', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD')
+                .get('/historical-price-full/commodity/BTCUSD')
                 .end((err, res) => {
-                    commodities.history('ZGUSD')
+                    crypto.history('BTCUSD')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -147,9 +159,9 @@ describe('.commodities', () => {
 
         it('should return valid of history of a commodity for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD')
+                .get('/historical-price-full/commodity/BTCUSD')
                 .end((err, res) => {
-                    commodities.history('zgusd')
+                    crypto.history('BTCUSD')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -160,9 +172,9 @@ describe('.commodities', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?timeseries=5')
+                .get('/historical-price-full/commodity/BTCUSD?timeseries=5')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { limit: 5 })
+                    crypto.history('BTCUSD', { limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -173,9 +185,9 @@ describe('.commodities', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?timeseries=5&serietype=line')
+                .get('/historical-price-full/commodity/BTCUSD?timeseries=5&serietype=line')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { data_type: 'line', limit: 5 })
+                    crypto.history('BTCUSD', { data_type: 'line', limit: 5 })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -186,9 +198,9 @@ describe('.commodities', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/ZGUSD?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/commodity/BTCUSD?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
-                    commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12' })
+                    crypto.history('BTCUSD', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -197,8 +209,8 @@ describe('.commodities', () => {
                 })
         });
 
-        it('should return 404 not found between a time interval with a data limit', (done) => {
-            commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            crypto.history('BTCUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
@@ -206,8 +218,8 @@ describe('.commodities', () => {
                 .catch(done);
         });
 
-        it('should return 404 not found between a time interval with a data limit for a line graph', (done) => {
-            commodities.history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            crypto.history('BTCUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
