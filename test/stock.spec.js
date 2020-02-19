@@ -254,12 +254,12 @@ describe('.stock', () => {
         });
     });
 
-    describe('.currentprice', () => {
+    describe('.current_price', () => {
         it('AAPL stock should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/AAPL')
                 .end((err, res) => {
-                    stock('AAPL').currentprice()
+                    stock('AAPL').current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -273,7 +273,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/AAPL,MSFT')
                 .end((err, res) => {
-                    stock(['AAPL', 'MSFT']).currentprice()
+                    stock(['AAPL', 'MSFT']).current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -286,7 +286,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/AAPL')
                 .end((err, res) => {
-                    stock('aapl').currentprice()
+                    stock('aapl').current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -299,7 +299,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/AAPL,MSFT')
                 .end((err, res) => {
-                    stock(['aapl', 'msft']).currentprice()
+                    stock(['aapl', 'msft']).current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -312,7 +312,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/AAPL,MSFT')
                 .end((err, res) => {
-                    stock('AAPL,MSFT').currentprice()
+                    stock('AAPL,MSFT').current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -325,7 +325,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price')
                 .end((err, res) => {
-                    stock().currentprice()
+                    stock().current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -338,7 +338,7 @@ describe('.stock', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/stock/real-time-price/')
                 .end((err, res) => {
-                    stock('').currentprice()
+                    stock('').current_price()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();

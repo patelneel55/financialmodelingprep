@@ -13,7 +13,7 @@ describe('.market', () => {
         describe('.list', () => {
             it('should return valid data', (done) => {
                 chai.request('https://financialmodelingprep.com/api/v3')
-                    .get('/majors-indexes')
+                    .get('/symbol/available-indexes')
                     .end((err, res) => {
                         index().list()
                             .then((response) => {
@@ -26,7 +26,7 @@ describe('.market', () => {
     
             it('invalid parameter should return valid data', (done) => {
                 chai.request('https://financialmodelingprep.com/api/v3')
-                    .get('/majors-indexes')
+                    .get('/symbol/available-indexes')
                     .end((err, res) => {
                         index().list()
                             .then((response) => {

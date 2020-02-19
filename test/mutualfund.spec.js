@@ -118,7 +118,7 @@ describe('.mutualfund', () => {
 
         it('[\'gifpx,jbfrx\'] stock in lowercase should return valid data', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/quote/GIFPX,jbfrx')
+                .get('/quote/GIFPX,JBFRX')
                 .end((err, res) => {
                     mutualfund.quote(['gifpx', 'jbfrx'])
                         .then((response) => {
