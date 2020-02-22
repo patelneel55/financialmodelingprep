@@ -347,4 +347,259 @@ describe('.stock', () => {
                 })
         });
     });
+
+    describe('.history', () => {
+        it('should return valid of history of a stock', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/AAPL')
+                .end((err, res) => {
+                    stock('AAPL').history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return valid of history of a stock for lowercase values', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/AAPL')
+                .end((err, res) => {
+                    stock('aapl').history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/AAPL?timeseries=5')
+                .end((err, res) => {
+                    stock('AAPL').history({ limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit in linear graph format', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/AAPL?timeseries=5&serietype=line')
+                .end((err, res) => {
+                    stock('AAPL').history({ data_type: 'line', limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return data points between a time interval', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/AAPL?from=2018-03-12&to=2019-03-12')
+                .end((err, res) => {
+                    stock('AAPL').history({ start_date: '2018-03-12', end_date: '2019-03-12' })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            stock('AAPL').history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            stock('AAPL').history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+    describe('.dividend_history', () => {
+        it('should return valid of history of a stock', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_dividend/AAPL')
+                .end((err, res) => {
+                    stock('AAPL').dividend_history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return valid of history of a stock for lowercase values', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_dividend/AAPL')
+                .end((err, res) => {
+                    stock('aapl').dividend_history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_dividend/AAPL?timeseries=5')
+                .end((err, res) => {
+                    stock('AAPL').dividend_history({ limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit in linear graph format', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_dividend/AAPL?timeseries=5&serietype=line')
+                .end((err, res) => {
+                    stock('AAPL').dividend_history({ data_type: 'line', limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return data points between a time interval', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_dividend/AAPL?from=2018-03-12&to=2019-03-12')
+                .end((err, res) => {
+                    stock('AAPL').dividend_history({ start_date: '2018-03-12', end_date: '2019-03-12' })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            stock('AAPL').dividend_history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            stock('AAPL').dividend_history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+    });
+
+    describe('.split_history', () => {
+        it('should return valid of history of a stock', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_split/AAPL')
+                .end((err, res) => {
+                    stock('AAPL').split_history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return valid of history of a stock for lowercase values', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_split/AAPL')
+                .end((err, res) => {
+                    stock('aapl').split_history()
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_split/AAPL?timeseries=5')
+                .end((err, res) => {
+                    stock('AAPL').split_history({ limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return only data points until limit in linear graph format', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_split/AAPL?timeseries=5&serietype=line')
+                .end((err, res) => {
+                    stock('AAPL').split_history({ data_type: 'line', limit: 5 })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return data points between a time interval', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/stock_split/AAPL?from=2018-03-12&to=2019-03-12')
+                .end((err, res) => {
+                    stock('AAPL').split_history({ start_date: '2018-03-12', end_date: '2019-03-12' })
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return 500 server error between a time interval with a data limit', (done) => {
+            stock('AAPL').split_history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5 })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+
+        it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
+            stock('AAPL').split_history({ start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+                .then((response) => {
+                    expect(response).to.have.status(500);
+                    done();
+                })
+                .catch(done);
+        });
+    });
 });

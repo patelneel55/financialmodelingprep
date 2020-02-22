@@ -129,6 +129,19 @@ describe('.crypto', () => {
                 })
         });
 
+        it('[\'btc,eth\'] stock in lowercase should return valid data without USD denotion', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/quote/BTCUSD,ETHUSD')
+                .end((err, res) => {
+                    crypto.quote(['btc', 'eth'])
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
         it('should return valid data without USD denotion', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/quote/BTCUSD')

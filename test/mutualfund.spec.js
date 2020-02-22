@@ -291,7 +291,7 @@ describe('.mutualfund', () => {
         });
 
         it('should return 500 server error between a time interval with a data limit for a line graph', (done) => {
-            mutualfund.dividend_history('ZGUSD', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
+            mutualfund.dividend_history('GIFPX', { start_date: '2018-03-12', end_date: '2019-03-12', limit: 5, data_type: 'line' })
                 .then((response) => {
                     expect(response).to.have.status(500);
                     done();
