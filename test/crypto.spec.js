@@ -159,7 +159,7 @@ describe('.crypto', () => {
     describe('.history', () => {
         it('should return valid of history of a commodity', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/BTCUSD')
+                .get('/historical-price-full/crypto/BTCUSD')
                 .end((err, res) => {
                     crypto.history('BTCUSD')
                         .then((response) => {
@@ -172,7 +172,7 @@ describe('.crypto', () => {
 
         it('should return valid of history of a commodity for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/BTCUSD')
+                .get('/historical-price-full/crypto/BTCUSD')
                 .end((err, res) => {
                     crypto.history('BTCUSD')
                         .then((response) => {
@@ -185,7 +185,7 @@ describe('.crypto', () => {
 
         it('should return only data points until limit', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/BTCUSD?timeseries=5')
+                .get('/historical-price-full/crypto/BTCUSD?timeseries=5')
                 .end((err, res) => {
                     crypto.history('BTCUSD', { limit: 5 })
                         .then((response) => {
@@ -198,7 +198,7 @@ describe('.crypto', () => {
 
         it('should return only data points until limit in linear graph format', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/BTCUSD?timeseries=5&serietype=line')
+                .get('/historical-price-full/crypto/BTCUSD?timeseries=5&serietype=line')
                 .end((err, res) => {
                     crypto.history('BTCUSD', { data_type: 'line', limit: 5 })
                         .then((response) => {
@@ -211,7 +211,7 @@ describe('.crypto', () => {
 
         it('should return data points between a time interval', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
-                .get('/historical-price-full/commodity/BTCUSD?from=2018-03-12&to=2019-03-12')
+                .get('/historical-price-full/crypto/BTCUSD?from=2018-03-12&to=2019-03-12')
                 .end((err, res) => {
                     crypto.history('BTCUSD', { start_date: '2018-03-12', end_date: '2019-03-12' })
                         .then((response) => {
@@ -238,6 +238,45 @@ describe('.crypto', () => {
                     done();
                 })
                 .catch(done);
+        });
+
+        it('[\'BTCUSD,ETHUSD\'] stock should return valid history data', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/crypto/BTCUSD,ETHUSD')
+                .end((err, res) => {
+                    crypto.history(['BTCUSD', 'ETHUSD'])
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('[\'btcusd,ethusd\'] stock in lowercase should return valid history data', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/crypto/BTCUSD,ETHUSD')
+                .end((err, res) => {
+                    crypto.history(['btcusd', 'ethusd'])
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('[\'btc,eth\'] stock in lowercase should return valid history data without USD denotion', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/crypto/BTCUSD,ETHUSD')
+                .end((err, res) => {
+                    crypto.history(['btc', 'eth'])
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
         });
     });
 });
