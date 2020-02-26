@@ -45,7 +45,7 @@ Keep in mind most of the web API breakdown and routes closely follow the structu
 
 ### Stock
 
-Accessed through `fmp.stock(ticker).{method_name}*`
+Accessed through `fmp.stock({ticker}).{method_name}*`
 ```js
 profile()                                                   // /profile
 quote()                                                     // /quote
