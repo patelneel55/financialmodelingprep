@@ -1,10 +1,9 @@
 # Financial Modeling Prep
 
+This module is a node wrapper for the free [Financial Modeling Prep API](https://financialmodelingprep.com/developer/docs). This node application implements almost all aspects of the FMP API.
+
 [![Travis CI](https://travis-ci.org/patelneel55/financialmodelingprep.svg?branch=master)](https://travis-ci.org/patelneel55/financialmodelingprep)
 [![codecov](https://codecov.io/gh/patelneel55/financialmodelingprep/branch/master/graph/badge.svg)](https://codecov.io/gh/patelneel55/financialmodelingprep)
-
-
-This module is a node wrapper for the [Financial Modeling Prep API](https://financialmodelingprep.com/developer/docs). This node application implements almost all aspects of the FMP API.
 
 ## About FinancialModelingPrep
 
