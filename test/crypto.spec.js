@@ -157,7 +157,7 @@ describe('.crypto', () => {
     });
 
     describe('.history', () => {
-        it('should return valid of history of a commodity', (done) => {
+        it('should return valid of history of a crypto', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/historical-price-full/crypto/BTCUSD')
                 .end((err, res) => {
@@ -170,11 +170,24 @@ describe('.crypto', () => {
                 })
         });
 
-        it('should return valid of history of a commodity for lowercase values', (done) => {
+        it('should return valid of history of a crypto for lowercase values', (done) => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/historical-price-full/crypto/BTCUSD')
                 .end((err, res) => {
-                    crypto.history('btc')
+                    crypto.history('btcusd')
+                        .then((response) => {
+                            expect(res.body).to.eql(response);
+                            done();
+                        })
+                        .catch(done);
+                })
+        });
+
+        it('should return valid of history of a crypto with no USD denotion', (done) => {
+            chai.request('https://financialmodelingprep.com/api/v3')
+                .get('/historical-price-full/crypto/BTCUSD')
+                .end((err, res) => {
+                    crypto.history('BTC')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
