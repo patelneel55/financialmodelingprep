@@ -174,7 +174,7 @@ describe('.crypto', () => {
             chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/historical-price-full/crypto/BTCUSD')
                 .end((err, res) => {
-                    crypto.history('BTCUSD')
+                    crypto.history('btc')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
