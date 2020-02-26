@@ -22,14 +22,15 @@
     "type": "git",
     "url": "git+https://github.com/patelneel55/financialmodelingprep.git"
   },
-  "author": "Neel Patel <patelneel55@gmail.com>",
+  "author": "Neel Patel <patelneel55@gmail.com> (https://github.com/patelneel55)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/patelneel55/financialmodelingprep/issues"
+    "url": "https://github.com/patelneel55/financialmodelingprep/issues",
+    "email": "patelneel55@gmail.com"
   },
   "homepage": "https://github.com/patelneel55/financialmodelingprep",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": ">=0.19.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
