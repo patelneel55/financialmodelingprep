@@ -360,12 +360,12 @@ describe('.stock', () => {
             });
         });
 
-        describe('.companyvalue', () => {
+        describe('.company_value', () => {
             it('undefined parameter should return valid data', (done) => {
                 chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/enterprise-value/AAPL')
                 .end((err, res) => {
-                    financial('AAPL').companyvalue()
+                    financial('AAPL').company_value()
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -378,7 +378,7 @@ describe('.stock', () => {
                 chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/enterprise-value/AAPL?period=')
                 .end((err, res) => {
-                    financial('AAPL').companyvalue('')
+                    financial('AAPL').company_value('')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -391,7 +391,7 @@ describe('.stock', () => {
                 chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/enterprise-value/AAPL?period=quarter')
                 .end((err, res) => {
-                    financial('AAPL').companyvalue('quarter')
+                    financial('AAPL').company_value('quarter')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -404,7 +404,7 @@ describe('.stock', () => {
                 chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/enterprise-value/AAPL?period=annual')
                 .end((err, res) => {
-                    financial('AAPL').companyvalue('annual')
+                    financial('AAPL').company_value('annual')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
@@ -417,7 +417,7 @@ describe('.stock', () => {
                 chai.request('https://financialmodelingprep.com/api/v3')
                 .get('/enterprise-value/AAPL?period=annual')
                 .end((err, res) => {
-                    financial('AAPL').companyvalue('dfsgffdsf')
+                    financial('AAPL').company_value('dfsgffdsf')
                         .then((response) => {
                             expect(res.body).to.eql(response);
                             done();
