@@ -8,14 +8,19 @@ const mutualfund = require('./lib/etf');
 const stock = require('./lib/stock');
 const market = require('./lib/market');
 const search = require('./lib/search');
+const auth = require('./lib/auth');
 
-module.exports = {
-    stock: stock,
-    market: market,
-    forex: forex,
-    crypto: crypto,
-    search: search,
-    commodities: commodities,
-    etf: etf,
-    mutualfund: mutualfund
+
+const FinancialModelingPrep = function FinancialModelingPrep(apikey) {
+  auth.data.push(apikey);
 };
+
+FinancialModelingPrep.prototype.stock = stock;
+FinancialModelingPrep.prototype.market = market;
+FinancialModelingPrep.prototype.forex = forex;
+FinancialModelingPrep.prototype.crypto = crypto;
+FinancialModelingPrep.prototype.search = search;
+FinancialModelingPrep.prototype.commodities = commodities;
+FinancialModelingPrep.prototype.etf = etf;
+
+module.exports = FinancialModelingPrep;
