@@ -13,6 +13,10 @@ This API is perfect for someone like who loves to dabble with financial data as 
 
 I have no affiliation with FinancialModelingPrep and its web API development.
 
+## Prerequisites
+
+You have to create an accound on [FinancialModelingPrep](https://financialmodelingprep.com/) and retrieve your API key. 
+
 ## Installation
 ```bash
 npm install --save financialmodelingprep
@@ -21,7 +25,8 @@ npm install --save financialmodelingprep
 ## Usage
 
 ```js
-const fmp = require('financialmodelingprep')
+const FinancialModelingPrep = require('financialmodelingprep')
+const fmp = new FinancialModelingPrep(apiKey);
 
 // Simple Examples
 
@@ -132,7 +137,7 @@ history({ start_date, end_date, data_type, limit } = {})    // /historical-price
 ```
 
 # Contributing
-Contributions are welcome! The purpose of this npm package is to create a node wrapper that closely aligns to the free financial API provided by Financial Modeling Prep. If there are any features that are vital and I may have forgotten, feel free to open an issue or complete it by opening a pull request. 
+Contributions are welcome! The purpose of this npm package is to create a node wrapper that closely aligns to the free financial API provided by Financial Modeling Prep. If there are any features that are vital and I may have forgotten, feel free to open an issue or complete it by opening a pull request.
 
 Before you open any pull requests, make sure the code structure follows the function calls provided above and the test suite passes, which can be checked by running `npm test`. If possible try to keep the coverage of your code at ~100% to ensure future regression stability.
 
