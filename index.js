@@ -12,7 +12,7 @@ const auth = require('./lib/auth');
 
 
 const FinancialModelingPrep = function FinancialModelingPrep(apikey) {
-  auth.data.push(apikey);
+  auth.key = apikey;
 };
 
 FinancialModelingPrep.prototype.stock = stock;
