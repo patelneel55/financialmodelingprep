@@ -22,5 +22,6 @@ FinancialModelingPrep.prototype.crypto = crypto;
 FinancialModelingPrep.prototype.search = search;
 FinancialModelingPrep.prototype.commodities = commodities;
 FinancialModelingPrep.prototype.etf = etf;
+FinancialModelingPrep.prototype.mutualfund = mutualfund;
 
 module.exports = FinancialModelingPrep;
