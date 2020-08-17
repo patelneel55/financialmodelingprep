@@ -11,17 +11,17 @@ const search = require('./lib/search');
 const auth = require('./lib/auth');
 
 
-const FinancialModelingPrep = function FinancialModelingPrep(apikey) {
+module.exports = (apikey) => {
   auth.key = apikey;
-};
 
-FinancialModelingPrep.prototype.stock = stock;
-FinancialModelingPrep.prototype.market = market;
-FinancialModelingPrep.prototype.forex = forex;
-FinancialModelingPrep.prototype.crypto = crypto;
-FinancialModelingPrep.prototype.search = search;
-FinancialModelingPrep.prototype.commodities = commodities;
-FinancialModelingPrep.prototype.etf = etf;
-FinancialModelingPrep.prototype.mutualfund = mutualfund;
-
-module.exports = FinancialModelingPrep;
+  return {
+      stock: stock,
+      market: market,
+      forex: forex,
+      crypto: crypto,
+      search: search,
+      commodities: commodities,
+      etf: etf,
+      mutualfund: mutualfund
+  }
+}

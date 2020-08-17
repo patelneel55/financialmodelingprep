@@ -7,15 +7,11 @@ This module is a node wrapper for the free [Financial Modeling Prep API](https:/
 
 ## About FinancialModelingPrep
 
-The FMP API provides a **free** financial API that provides different types of data ranging from stock prices and historical data to financial statements and market performance. The complete API documentation is available [here](https://financialmodelingprep.com/developer/docs).
+The FMP API offers different types of data ranging from stock prices and historical data to financial statements and market performance. The complete API documentation is available [here](https://financialmodelingprep.com/developer/docs).
 
-This API is perfect for someone like who loves to dabble with financial data as a hobby and incorporate it into other projects but doesn't have the capital to spend for other financial APIs such as Alphavantage or Quandl. Even though these other APIs offer free endpoints, they have query limits. These query limits are not present in the FMP API and some of their endpoints are almost real-time.
+This API is perfect for someone who loves to dabble with financial data as a hobby and incorporate it into other projects.
 
 I have no affiliation with FinancialModelingPrep and its web API development.
-
-## Prerequisites
-
-You have to create an accound on [FinancialModelingPrep](https://financialmodelingprep.com/) and retrieve your API key. 
 
 ## Installation
 ```bash
@@ -24,9 +20,10 @@ npm install --save financialmodelingprep
 
 ## Usage
 
+To use this module first create an account with [FinancialModelingPrep](https://financialmodelingprep.com/developer/docs/pricing/) and retrieve your API key.
+
 ```js
-const FinancialModelingPrep = require('financialmodelingprep')
-const fmp = new FinancialModelingPrep(apiKey);
+const fmp = require('financialmodelingprep')(apikey)
 
 // Simple Examples
 
