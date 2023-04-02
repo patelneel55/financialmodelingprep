@@ -55,6 +55,7 @@ current_price()                                             // /stock/real-time-
 history({start_date, end_date, limit, type} = {})           // /historical-price-full/{ticker}?{opts}
 dividend_history({start_date, end_date, limit, type} = {})  // /historical-price-full/stock_dividend/{ticker}?{opts}
 split_history({start_date, end_date, limit, type} = {})     // /historical-price-full/stock_split/{ticker}?{opts}
+earnings({limit} = {})                                      // /historical/earning_calendar/{ticker}?{opts}
 
 financial.income(period = 'annual')                         // /financials/income-statement
 financial.balancesheet(period = 'annual')                   // /financials/balance-sheet-statement
