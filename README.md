@@ -55,12 +55,13 @@ current_price()                                             // /stock/real-time-
 history({start_date, end_date, limit, type} = {})           // /historical-price-full/{ticker}?{opts}
 dividend_history({start_date, end_date, limit, type} = {})  // /historical-price-full/stock_dividend/{ticker}?{opts}
 split_history({start_date, end_date, limit, type} = {})     // /historical-price-full/stock_split/{ticker}?{opts}
+earnings({limit} = {})                                      // /historical/earning_calendar/{ticker}?{opts}
 
-financial.income(period = 'annual')                         // /financials/income-statement
-financial.balancesheet(period = 'annual')                   // /financials/balance-sheet-statement
-financial.cashflow(period = 'annual')                       // /financials/cash-flow-statement
-financial.metrics(period = 'annual')                        // /company-key-metrics
-financial.growth(period = 'annual')                         // /financial-statement-growth
+financial.income(period = 'annual')                         // /income-statement
+financial.balancesheet(period = 'annual')                   // /balance-sheet-statement
+financial.cashflow(period = 'annual')                       // /cash-flow-statement
+financial.metrics(period = 'annual')                        // /key-metrics
+financial.growth(period = 'annual')                         // /financial-growth
 financial.ratios()                                          // /financial-ratios
 ```
 \* The `stock` parameter can either be pased as a string or an array of market tickers. These tickers can be found either by running search based on corporation name.
